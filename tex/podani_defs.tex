@@ -1,0 +1,75 @@
+\def\UrlZA{\url{https://is.muni.cz/el/fi/podzim2019/IB015/um/homework/zadani04.pdf}}
+\def\UrlZB{\url{https://is.muni.cz/el/fi/podzim2019/IB015/um/homework/zadani08.pdf}}
+\def\UrlZC{\url{https://is.muni.cz/el/fi/podzim2019/IB015/um/homework/zadani12.pdf}}
+\def\UrlKA{\url{https://is.muni.cz/el/fi/podzim2019/IB015/um/homework/zadani04.hs}}
+\def\UrlKB{\url{https://is.muni.cz/el/fi/podzim2019/IB015/um/homework/zadani08.hs}}
+\def\UrlKC{\url{https://is.muni.cz/el/fi/podzim2019/IB015/um/homework/zadani12.hs}}
+
+\def\st#1{\nameof{#1}, učo #1}
+\def\moss#1{skóre \textsc{moss} #1~\%}
+\newenvironment{zjisteni}{%
+    \bigskip
+    \penalty -1000
+}{%
+    \bigskip
+    \begin{center}
+        *\quad*\quad*
+    \end{center}
+    \bigskip
+}
+\long\def\Zaver{
+    S~pozdravem
+
+    \vskip 3em
+    \raggedleft Adam Matoušek\\cvičící předmětu \textsc{ib}\oldstylenums{015}
+
+    \bigskip
+    \noindent V Brně dne \today
+}
+\makeatletter
+% generate \ifhwA etc.
+\define@boolkeys{opis}[hw]{ A, B, C }[true]
+\edef\tmp@setkeys{\noexpand\setkeys*{opis}{\Volby}}
+\tmp@setkeys % setkeys must have its argument expanded
+
+\newcounter{PocetUloh}
+\ifhwA\stepcounter{PocetUloh}\fi
+\ifhwB\stepcounter{PocetUloh}\fi
+\ifhwC\stepcounter{PocetUloh}\fi
+\ifnum \c@PocetUloh > 1 \morehwtrue \fi
+\makeatother
+
+\def\maybeA{}
+\ifmorehw
+    \moreplagtrue
+    \def\maybeA{\ a~\def\maybeA{}}
+\fi
+
+\def\SeznamUloh{%
+    \ifhwA čtvrté\ifmorehw\maybeA\fi\fi
+    \ifhwB osmé\fi\maybeA
+    \ifhwC dvanácté\fi
+}
+
+\def\PodobnostiU#1{
+    \par\penalty 8000
+    \noindent Podobnosti v řešení\ifmoreplag ch\fi: \PodobnostMaji{#1}
+    \par
+    \medskip\ignorespaces%
+}
+
+\ifmorehw
+    \def\KUloze#1{%
+        \bigskip
+        \noindent%
+        \textbf{\ignorespaces%
+            \if#1A  Čtvrtá\fi%
+            \if#1B  Osmá\fi%
+            \if#1C  Dvanáctá\fi%
+            \ úloha%
+        }\par\penalty 10000\medskip
+        \PodobnostiU{#1}
+    }
+\else
+    \def\KUloze{\PodobnostiU}
+\fi

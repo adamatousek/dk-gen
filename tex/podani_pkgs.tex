@@ -1,0 +1,40 @@
+\documentclass[a4paper,11pt]{report}
+\pagestyle{empty}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xkeyval}
+\usepackage[hyperfootnotes=false,
+    colorlinks=true,
+    linkcolor={Sepia},
+    citecolor={PineGreen},
+    urlcolor={MidnightBlue}]{hyperref}
+
+\def\defstudent#1#2{%
+    \expandafter\def\csname name@#1\endcsname{#2}%
+}
+\def\nameof#1{%
+    \csname name@#1\endcsname%
+}
+
+\input{lidi}
+\newif\ifmale
+\newif\ifmoreplag
+\newif\ifmorehw
+
+
+\newcommand\PodobnostMaji[1]{\csname PodobnostMaji#1\endcsname}
+\newcommand{\Podobnost}[2]{%
+    \ifnum #2 = \UCO \else%
+        \ifcsname PodobnostMaji#1\endcsname%
+            \moreplagtrue%
+            \expandafter\def\expandafter\tmp\expandafter{\csname PodobnostMaji#1\endcsname}%
+            \expandafter\let\expandafter\PodobnostMeli\tmp%
+            \expandafter\expandafter\expandafter\def\expandafter\expandafter\csname PodobnostMaji#1\endcsname\expandafter{\PodobnostMeli,%
+            \\ \hphantom{Podobnosti v řešeních: }\st{#2}}%
+        \else%
+            \expandafter\def\csname PodobnostMaji#1\endcsname{\st{#2}}%
+        \fi%
+    \fi%
+}
